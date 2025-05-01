@@ -1,10 +1,16 @@
 import { serve } from '@hono/node-server';
 import { PrismaClient } from '../generated/prisma/index.js';
 import { Hono } from 'hono';
+import { cors } from 'hono/cors';
 
 const app = new Hono()
 const prisma = new PrismaClient();
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+)
 
 app.get('/', (c) => {
   return c.text('Hello Hono!')
